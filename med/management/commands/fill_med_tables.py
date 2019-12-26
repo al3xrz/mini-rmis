@@ -78,20 +78,44 @@ class Command(BaseCommand):
         wb.close()
 
 
+    def fill_schemes(self, filename):
+        wb = openpyxl.load_workbook(filename)
+        sheet = wb['Схемы лекарственной терапии']
+        pass
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     def handle(self, *args, **options):
 
-        Profile.objects.all().delete()
-        self.fill_profile('s.xlsx')
-        self.fill_profile('d.xlsx')
+        # Profile.objects.all().delete()
+        # self.fill_profile('s.xlsx')
+        # self.fill_profile('d.xlsx')
+        #
+        # KSG.objects.all().delete()
+        # self.fill_ksg_items('d.xlsx', "Дневной")
+        # self.fill_ksg_items('s.xlsx', "Круглосуточный")
+        #
+        # MKB.objects.all().delete()
+        # self.fill_mkb_items('d.xlsx')
 
-        KSG.objects.all().delete()
-        self.fill_ksg_items('d.xlsx', "Дневной")
-        self.fill_ksg_items('s.xlsx', "Круглосуточный")
 
-        MKB.objects.all().delete()
-        self.fill_mkb_items('d.xlsx')
+
+
+
 
         pass
 
