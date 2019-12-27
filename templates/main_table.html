@@ -4,33 +4,34 @@
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 
-
-<style media="screen">
+<style>
     .previous,
     .next,
     .page-link {
         font-size: 12px;
     }
 
-    .td {
-        font-size : 12px
+    td {
+        font-size: 12px;
     }
 
-    .td {
-        font-size : 12px
-    }
+    th {
+        font-size: 13px;
 
+    }
 
 </style>
 
-
 {% endblock %}
+
+
+
 
 {% block content %}
 <div class="container-fluid" style="padding-top:20px">
     <div class="row w100">
         <div class="col-md-12">
-            <table id="table-p" class="table table-striped table-bordered">
+            <table id="table-p" class="table ">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -74,7 +75,7 @@
             "language": {
                 "lengthMenu": "Показывать по &nbsp _MENU_",
                 "zeroRecords": "К сожалению ничего не найдено",
-                "info": "",//"Найдено _TOTAL_  из _MAX_ ",
+                "info": "", //"Найдено _TOTAL_  из _MAX_ ",
                 "infoEmpty": "Информация отсутствует",
                 "infoFiltered": "",
                 paginate: {
