@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+
+<style media="screen">
+    .previous,
+    .next,
+    .page-link {
+        font-size: 12px;
+    }
+
+    .td {
+        font-size : 12px
+    }
+
+    .td {
+        font-size : 12px
+    }
+
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding-top:20px">
+    <div class="row w100">
+        <div class="col-md-12">
+            <table id="table-p" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ФИО</th>
+                        <th>Дата рождения</th>
+                        <th>МО</th>
+                        <th>Населенный пункт</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js "></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#table-p').DataTable({
+            "bPaginate": true,
+
+            "language": {
+                "lengthMenu": "Показывать по &nbsp _MENU_",
+                "zeroRecords": "К сожалению ничего не найдено",
+                "info": "",//"Найдено _TOTAL_  из _MAX_ ",
+                "infoEmpty": "Информация отсутствует",
+                "infoFiltered": "",
+                paginate: {
+                    next: '>',
+                    previous: '<'
+                }
+            },
+
+
+        });
+
+        $(".dataTables_filter").hide();
+        $('#inputSearch').keyup(function() {
+            $('#table-p').DataTable().search($(this).val()).draw();
+        })
+
+    });
+</script>
+
+{% endblock %}

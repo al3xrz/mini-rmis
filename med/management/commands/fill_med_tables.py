@@ -65,8 +65,6 @@ class Command(BaseCommand):
                 break
             excel_row = [str(sheet.cell(row=row, column=col).value) for col in range(1,3)]
             ksg_row = [str(sheet.cell(row=row, column=col).value) for col in range(3,19) if str(sheet.cell(row=row, column=col).value)!='None']
-
-
             print(excel_row)
             mkb = MKB(code=excel_row[0], diagnosis=excel_row[1])
             mkb.save()
@@ -78,11 +76,36 @@ class Command(BaseCommand):
         wb.close()
 
 
-    def fill_schemes(self, filename):
+    def fill_schemes(self, filename, st_type):
         wb = openpyxl.load_workbook(filename)
         sheet = wb['Схемы лекарственной терапии']
-        pass
-        
+        row = 2
+        while True:
+            mark_cell = sheet.cell(row=row, column=1).value
+            if mark_cell is None:
+                break
+            excel_row = [str(sheet.cell(row=row, column=col).value) for col in range(1,8)]
+            print("%s %s"%(row, excel_row))
+            try:
+                ksg = KSG.objects.get(code=excel_row[4])
+            except:
+                ksg = None
+
+            scheme = Scheme(
+                st_type = st_type,
+                code = excel_row[0],
+                mnn = excel_row[1],
+                name = excel_row[2],
+                col = excel_row[3],
+                ksg = ksg,
+                sign = excel_row[5],
+                comments = excel_row[6]
+            )
+            print(scheme)
+            scheme.save()
+            row += 1
+        wb.close()
+
 
 
 
@@ -111,6 +134,9 @@ class Command(BaseCommand):
         #
         # MKB.objects.all().delete()
         # self.fill_mkb_items('d.xlsx')
+        Scheme.objects.all().delete()
+        self.fill_schemes('d.xlsx', "Дневной")
+        self.fill_schemes('s.xlsx', "Круглосуточный")
 
 
 

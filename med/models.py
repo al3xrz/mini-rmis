@@ -1,6 +1,39 @@
 from django.db import models
 
 
+
+class Result(models.Model):
+    class Meta:
+        verbose_name = 'Исход заболевания'
+        verbose_name_plural = 'Исход заболевания'
+
+    name = models.CharField(
+        max_length=50,
+        verbose_name='Наименование',
+    )
+
+    def __str__(self):
+        return self.name
+
+
+
+class Department(models.Model):
+    class Meta:
+        verbose_name = 'Отделение'
+        verbose_name_plural = 'Отделения'
+
+    name = models.CharField(
+        max_length=50,
+        verbose_name='Наименование',
+    )
+
+    def __str__(self):
+        return self.name
+
+
+
+
+
 class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
@@ -28,11 +61,6 @@ st_CHOICES = (
 
 
 
-
-
-
-
-
 class KSG(models.Model):
 
     class Meta:
@@ -42,7 +70,7 @@ class KSG(models.Model):
 
     st_type = models.CharField(
         choices=st_CHOICES,
-        max_length=10,
+        max_length=20,
         verbose_name='Тип стационара',
     )
 
@@ -125,7 +153,8 @@ class Scheme(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return '[%s стационар] [%s]     %s'%(self.st_type, self.code, self.name)
+
 
 
 
@@ -153,6 +182,7 @@ class MKB(models.Model):
 
     ksg = models.ManyToManyField(
         KSG,
+        verbose_name='КСГ'
     )
 
     def get_datestates(self):
