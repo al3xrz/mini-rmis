@@ -81,7 +81,7 @@ class Patient(models.Model):
 
     )
 
-    birhtdate = models.DateField(
+    birthdate = models.DateField(
         verbose_name = 'Дата рождения'
     )
 
