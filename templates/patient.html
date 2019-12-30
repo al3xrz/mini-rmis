@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+
+<style>
+
+</style>
+
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="container" style="padding-top:80px">
+
+    <form action="index.html" method="post" role="form" class='form-horizontal'>
+        <div class="row form-group">
+            <label for="name" class='control-label col-md-3 col-form-label-sm'>ФИО пациента</label>
+            <div class="col-md-9">
+                <input type="text" class='form-control' id='name' value='{{ patient.name }}'>
+            </div>
+
+        </div>
+        <div class="row form-group">
+            <label for="date" class='control-label col-md-3 col-form-label-sm'>Дата рождения</label>
+            <div class="col-md-9">
+                <input type="date" class='form-control date' id='datePicker' value="{{patient.birthdate|date:'Y-m-d'}}">
+            </div>
+
+        </div>
+        <div class="row form-group">
+            <label for="mun" class='control-label col-md-3 col-form-label-sm'>Муниципальное образование</label>
+            <div class="col-md-9">
+                <select class="custom-select mr-sm-2" id="munSelect">
+                    <option selected>{{ patient.locality.municipality }}</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <!-- <input type="mun" class='form-control' id='mun' value='{{ patient.locality.municipality}}'> -->
+            </div>
+
+        </div>
+        <div class="row form-group">
+            <label for="loc" class='control-label col-md-3 col-form-label-sm'>Населенный пункт</label>
+            <div class="col-md-9">
+                <select class="custom-select mr-sm-2" id="locSelect">
+                    <option selected>{{ patient.locality}}</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+
+                <!-- <input type="mun" class='form-control' id='mun' value='{{ patient.locality}}'> -->
+            </div>
+
+
+
+        </div>
+        <button type="button" class='btn btn-success' name="button"> Сохранить </button>
+    </form>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+
+{% endblock %}

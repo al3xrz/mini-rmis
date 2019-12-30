@@ -12,5 +12,5 @@ router.register(r'patients', PatientViewSet)
 urlpatterns = [
     path('', main_entry_point, name = 'main_entry_point'),
     path('api/', include(router.urls)),
-    #path('patients/<int:id>', patient, name = 'patient'),
+    path('patients/<int:id>', patient, name = 'patient'),
 ]

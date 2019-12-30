@@ -10,14 +10,25 @@
     .next,
     .page-link {
         font-size: 12px;
+
     }
 
     td {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     th {
-        font-size: 13px;
+        font-size: 14px;
+    }
+
+    table.dataTable thead tr {
+        background-color: rgba(0, 200, 255, 0.1);
+
+    }
+
+    td a {
+        color: gray;
+        font-size: 14px;
     }
 </style>
 
@@ -54,6 +65,7 @@
 {% block scripts %}
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js "></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -63,6 +75,11 @@
             "bPaginate": true,
             'serverSide': true,
             'ajax': '/main/api/patients/?format=datatables',
+            "pageLength": 15,
+            "lengthMenu": [
+                [10, 15, 25, 50, -1],
+                [10, 15, 25, 50, "Все"]
+            ],
             'columns': [{
                     'data': 'id',
                     "width": '3%'
@@ -70,7 +87,7 @@
                 {
                     'data': 'name',
                     "render": function(data, type, row, meta) {
-                        return '<a href="/main/patients/'+row['id']+'" <b>' + data + '</b></a>';
+                        return '<a href="/main/patients/' + row['id'] + '"><b>' + data + '</b></a>';
                     }
                 },
                 {
@@ -85,14 +102,23 @@
                     'data': 'locality.municipality.name',
                     "width": '16%'
                 },
-
             ],
+
+            columnDefs: [{
+                targets: 2,
+                render: function(data) {
+                    return moment(data).format('DD.MM.YYYY');
+                }
+            }],
+
             "language": {
+                "autoWidth": true,
                 "lengthMenu": "Показывать по &nbsp _MENU_",
                 "zeroRecords": "К сожалению ничего не найдено",
                 "info": "", //"Найдено _TOTAL_  из _MAX_ ",
                 "infoEmpty": "Информация отсутствует",
                 "infoFiltered": "",
+                "search": "Поиск:",
                 paginate: {
                     next: '>',
                     previous: '<'
@@ -102,10 +128,16 @@
 
         });
 
-        $(".dataTables_filter").hide();
-        $('#inputSearch').keyup(function() {
-            $('#table-p').DataTable().search($(this).val()).draw();
-        })
+        $(window).bind('resize', function() {
+            console.log('resize');
+            $('#table-p').css('width', '100%');
+        });
+
+
+        // $(".dataTables_filter").hide();
+        // $('#inputSearch').keyup(function() {
+        //     $('#table-p').DataTable().search($(this).val()).draw();
+        // })
 
     });
 </script>
